@@ -1,0 +1,29 @@
+<div class="grid">
+
+  <div class="title">
+    <h1>{{ title }}</h1>
+  </div>
+
+  <nav>
+    <!--
+    <div class="editToggle">
+      <mat-slide-toggle labelPosition="before" [(ngModel)]="allowEdits">Allow edits</mat-slide-toggle>
+      <span>(simulates being an Admin)</span>
+    </div>
+    -->
+    <button mat-raised-button routerLink="">Home</button>
+    <button mat-raised-button color="primary" routerLink="/products">List Products</button>
+    <div class="admin" *ngIf="allowEdits">
+      <span>Admin</span>
+      <button mat-raised-button color="accent" routerLink="/admin/products">List / Edit Products</button>
+      <button mat-raised-button color="accent" routerLink="/admin/product">Add Product</button>
+    </div>
+  </nav>
+
+  <div class="main-content">
+    <router-outlet />
+  </div>
+
+  <app-messages />
+
+</div>

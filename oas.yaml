@@ -1,0 +1,237 @@
+openapi: 3.1.0
+
+info:
+  title: Cheeseria
+  version: 1.0.0
+  summary: REST API for the Cheeseria
+  contact:
+    name: David Bishop
+    email: davefect@gmail.com
+
+servers: 
+  - url: "{protocol}://{host}:{port}/"
+    variables:
+      protocol:
+        enum:
+          - "http"
+          - "https"
+        default: "http"
+      host:
+        enum:
+          - "localhost"
+        default: "localhost"
+      port:
+        enum:
+          - "4200"
+        default: "4200"
+
+components:
+
+  schemas: 
+    uuid:
+      description: |-
+        Canonical textual representation of a version-4 variant-1 UUID (Universally Unique IDentifier), per RFC 4122.
+      type: string
+      minLength: 36
+      maxLength: 36
+      pattern: '/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i'
+      examples:
+        - "e4a0a49c-8602-4e86-a0d9-adfc6239297a"
+    product_name:
+      type: string
+      minLength: 1
+      examples: 
+        - "cheddar"
+    price:
+      type: number
+    pictures:
+      type: array
+      minItems: 0
+      items:
+        description: |-
+          URL where picture is located.
+        type: string
+        minLength: 1
+    color:
+      type: string
+      minLength: 1
+      examples:
+        - "yellow"
+        - "white"
+        - "blue"
+    product:
+      type: object
+      properties:
+        uuid:
+          $ref: '#/components/schemas/uuid'
+        productName:
+          $ref: '#/components/schemas/product_name'
+        pricePerKilogram:
+          $ref: '#/components/schemas/price'
+        pictures:
+          $ref: '#/components/schemas/pictures'
+        color:
+          $ref: '#/components/schemas/color'
+      required:
+        - uuid
+        - productName
+        - pricePerKilogram
+        - pictures
+        - color
+    product_create:
+      type: object
+      properties:
+        productName:
+          $ref: '#/components/schemas/product_name'
+        pricePerKilogram:
+          $ref: '#/components/schemas/price'
+        pictures:
+          $ref: '#/components/schemas/pictures'
+        color:
+          $ref: '#/components/schemas/color'
+      required:
+        - productName
+        - pricePerKilogram
+        - pictures
+        - color
+    products:
+      type: object
+      properties: 
+        products:
+          type: array
+          minItems: 0
+          items:
+            $ref: '#/components/schemas/product'
+
+  headers:
+    products_accept-ranges:
+      required: true
+      schema: 
+        type: string
+        minLength: 8
+        maxLength: 8
+        pattern: '/^products$/'
+        examples:
+          - "products"
+    products_content-range:
+      required: true
+      schema: 
+        type: string
+        minLength: 14
+        pattern: '/^products (0|[1-9][0-9]*)-(0|[1-9][0-9]*)\/(0|[1-9][0-9]*|\*)$/'
+        examples:
+          - "products 0-9/50"
+
+  parameters: 
+    product_uuid:
+      name: product_uuid
+      in: path
+      description: |-
+        A unique identifier for a specific product entity.
+      required: true
+      schema:
+        $ref: '#/components/schemas/uuid'
+    products_range:
+      name: Range
+      in: header
+      required: false
+      schema: 
+        type: string
+        minLength: 11
+        pattern: '/^products=(-(0|[1-9][0-9]*)|((0|[1-9][0-9]*)(-(0|[1-9][0-9]*)?)?))$/'
+        default: "products=0-"
+        example: "products=10-19"
+
+  requestBodies: 
+    product:
+      description: |-
+        A product entity.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/product_create'
+
+  responses:
+    204_NoContent:
+      description: |-
+        NO CONTENT - The server successfully processed the request, and is not returning any content.
+    400_BadRequest:
+      description: |-
+        BAD REQUEST - Can not or will not process request due to client error.
+    404_NotFound:
+      description: |-
+        NOT FOUND - Requested resource was not found.
+    product:
+      description: |-
+        A product entity.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/product'
+    products:
+      description: |-
+        Collection of product entities.
+      headers: 
+        Accept-Ranges:
+          $ref: '#/components/headers/products_accept-ranges'
+        Content-Range:
+          $ref: '#/components/headers/products_content-range'
+      content:
+        application/json:
+          schema: 
+            $ref: '#/components/schemas/products'
+
+paths:
+  /product:
+    get:
+      operationId: getProducts
+      summary: Retrieve products.
+      description: Returns collection of products.
+      parameters: 
+        - $ref: '#/components/parameters/products_range'
+      responses: 
+        200:
+          $ref: '#/components/responses/products'
+    post:
+      operationId: createProduct
+      summary: Create a new product.
+      description: Create a new product in the store.
+      requestBody: 
+        $ref: '#/components/requestBodies/product'
+      responses:
+        201:
+          $ref: '#/components/responses/product'
+        400:
+          $ref: '#/components/responses/400_BadRequest'
+  /product/{product_uuid}:
+    parameters: 
+      - $ref: '#/components/parameters/product_uuid'
+    get:
+      operationId: getProduct
+      summary: Retrieve a product by uuid.
+      description: Returns the single product which matches a specific uuid.
+      responses:
+        200:
+          $ref: '#/components/responses/product'
+        404:
+          $ref: '#/components/responses/404_NotFound'
+    put:
+      operationId: updateProduct
+      summary: Update a product by uuid.
+      description: Update the single product which matches a specific uuid.
+      requestBody: 
+        $ref: '#/components/requestBodies/product'
+      responses:
+        200:
+          $ref: '#/components/responses/product'
+        400:
+          $ref: '#/components/responses/400_BadRequest'
+        404:
+          $ref: '#/components/responses/404_NotFound'
+    delete:
+      operationId: deleteProduct
+      summary: Delete a product by uuid.
+      description: Delete the single product which matches a specific uuid.
+      responses:
+        204:
+          $ref: '#/components/responses/204_NoContent'

@@ -1,0 +1,100 @@
+//
+// TODO: make this CSS debugging stuff a mixin insted!
+//
+/*
+div.product,
+div.grid,
+div.grid > div {
+  border-style: dashed;
+  border-width: 0.3rem;
+  padding: 0.3rem;
+  margin: 0.3rem;
+}
+div.product {
+  border-color: green;
+  div.grid {
+    border-color: orchid;
+    > div {
+      border-color: purple;
+    }
+  }
+}
+// end CSS debugging stuff
+//*/
+
+
+
+div.grid {
+  display: grid;
+  grid-template-columns: [col-nav-start] 100px [col-main-start] minmax(200px, 600px) [col-end];
+  gap: 0rem;
+  justify-content: center;
+
+  margin: 2rem 1rem;
+
+  > div.nav {
+    grid-column-start: col-nav-start;
+    grid-column-end: col-main-start;
+    justify-self: end;
+    button {
+      margin: 0px 10px;
+    }
+  }
+  > div.main {
+    grid-column-start: col-main-start;
+    grid-column-end: col-end;
+  }
+}
+
+table.product,
+table.pictures {
+  th,
+  td {
+    text-align: left;
+    vertical-align: top;
+  }
+}
+
+table.product > thead > tr,
+table.product > tbody > tr {
+  > th,
+  > td {
+    border-width: 0px 0px 2px 0px;
+    border-style: solid;
+    border-color: lightgrey;
+    padding-bottom: 1rem;
+  }
+  > td {
+    padding-left: 1rem;
+  }
+
+  &.price {
+    > th > span.qualifier {
+      display: block;
+      font-size: small;
+      font-weight: 500;
+      font-style: italic;
+    }
+    > td {
+      text-align: right;
+      button {
+        display: block;
+      }
+    }
+  }
+
+  &.pictures > td > table.pictures {
+    font-size: small;
+    > thead > tr > th {
+      font-style: italic;
+      color: gray;
+    }
+    > tbody > tr > td {
+      font-family: monospace;
+      > img {
+        max-width: 50px;
+        max-height: 50px;
+      }
+    }
+  }
+}

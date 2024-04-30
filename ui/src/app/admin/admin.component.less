@@ -1,0 +1,38 @@
+//
+// TODO: make this CSS debugging stuff a mixin insted!
+//
+/*
+div.grid,
+div.grid > div {
+  border-style: dashed;
+  border-width: 0.3rem;
+  padding: 0.3rem;
+  margin: 0.3rem;
+}
+div.grid {
+  border-color: orange;
+  > div {
+    border-color: saddlebrown;
+  }
+}
+// end CSS debugging stuff
+//*/
+
+
+
+div.grid {
+  display: grid;
+  grid-template-rows: [row-start] auto [row-main-start] minmax(100px, auto) [row-end];
+  gap: 0rem;
+
+  > h2 {
+    grid-row-start: row-start;
+    grid-row-end: row-main-start;
+    margin: 1rem 25px 0px 25px;
+    font-size: 2em;
+  }
+  > div.main-content {
+    grid-row-start: row-main-start;
+    grid-row-end: row-end;
+  }
+}

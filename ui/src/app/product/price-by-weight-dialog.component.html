@@ -1,0 +1,48 @@
+<h2 mat-dialog-title>Calculate Price by Weight</h2>
+<mat-dialog-content>
+  <table class="calculator">
+    <thead>
+      <tr>
+        <th class="price">Price</th>
+        <th class="operator"></th>
+        <th class="weightInKilograms">Weight</th>
+        <th class="operator"></th>
+        <th class="total">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+
+        <td class="price">
+          &dollar;&nbsp;{{data.pricePerKilogram | number: '1.2-2'}}
+        </td>
+
+        <td class="operator">
+          &times;
+        </td>
+
+        <td class="weightInKilograms">
+          <mat-form-field class="weightInKilograms">
+            <mat-label>Weight</mat-label>
+            <input matInput type="number" required
+                placeholder="1.000" min="0.0" step="0.001"
+                [(ngModel)]="data.weightInKilograms">
+            <span matTextSuffix>&nbsp;kg</span>
+          </mat-form-field>
+        </td>
+
+        <td class="operator">
+          &equals;
+        </td>
+
+        <td class="total">
+          &dollar;&nbsp;{{ data.pricePerKilogram * data.weightInKilograms | number: '1.2-2' }}
+        </td>
+
+      </tr>
+    </tbody>
+  </table>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

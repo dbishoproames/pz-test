@@ -1,0 +1,107 @@
+//
+// TODO: make this CSS debugging stuff a mixin insted!
+//
+/*
+div.products,
+div.grid,
+div.grid > a {
+  border-style: dashed;
+  border-width: 0.3rem;
+  padding: 0.3rem;
+  margin: 0.3rem;
+}
+div.products {
+  border-color: green;
+  div.grid {
+    border-color: orchid;
+    > a {
+      border-color: purple;
+    }
+  }
+}
+mat-card.product-card {
+  [mat-card-image],
+  [mat-card-sm-image],
+  [mat-card-md-image],
+  [mat-card-lg-image],
+  [mat-card-xl-image] {
+    // helps show when images don't load
+    background-color: rgba(255, 0, 0, 0.33);
+    border: dashed rgba(192, 0, 0, 0.66) 0.3rem;
+  }
+}
+// end CSS debugging stuff
+//*/
+
+
+
+div.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem 1rem;
+
+  margin: 1rem 1rem 2rem 1rem;
+
+  > a {
+    &,
+    &:link,
+    &:visited,
+    &:hover,
+    &:active {
+      text-decoration: none;
+      color: blue;
+    }
+    &:hover,
+    &:active {
+      > mat-card.product-card {
+        background-color: lightblue;
+        mat-card-title {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
+mat-card.product-card {
+  border: solid black 0.2rem;
+  border-radius: 1rem;
+  max-width: 350px;
+  mat-card-header {
+    padding-top: 8px;
+  }
+
+  [mat-card-image],
+  [mat-card-sm-image],
+  [mat-card-md-image],
+  [mat-card-lg-image],
+  [mat-card-xl-image] {
+    align-self: center;
+    border-radius: 0rem;
+    margin-top: 0.4rem;
+  }
+
+  [mat-card-sm-image],
+  [mat-card-md-image],
+  [mat-card-lg-image],
+  [mat-card-xl-image] {
+    height: auto;
+    width: auto;
+  }
+  [mat-card-sm-image] {
+    max-width: 80px;
+    max-height: 80px;
+  }
+  [mat-card-md-image] {
+    max-width: 112px;
+    max-height: 112px;
+  }
+  [mat-card-lg-image] {
+    max-width: 152px;
+    max-height: 152px;
+  }
+  [mat-card-xl-image] {
+    max-width: 240px;
+    max-height: 240px;
+  }
+}

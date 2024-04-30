@@ -1,0 +1,68 @@
+<div *ngIf="product" class="product">
+  <div class="grid">
+
+    <div class="nav">
+      <button mat-fab color="primary"
+          (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+    </div>
+
+    <div class="main">
+
+      <table class="product">
+        <tbody>
+
+          <tr class="productName">
+            <th>Product Name</th>
+            <td>{{product.productName}}</td>
+          </tr>
+
+          <tr class="colour">
+            <th>Colour</th>
+            <td>{{product.colour}}</td>
+          </tr>
+
+          <tr class="pictures">
+            <th>Pictures</th>
+            <td>
+              <table class="pictures">
+                <thead>
+                  <tr>
+                    <!-- <td>#</td> -->
+                    <th>Image URL</th>
+                    <th>Thumbnail</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let p of product.pictures; index as i">
+                    <!-- <th>{{i}}</th> -->
+                    <td>{{p}}</td>
+                    <td><img [src]="p"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+
+          <tr class="price">
+            <th>
+              Price
+              <span class="qualifier">(per kilogram)</span>
+            </th>
+            <td>
+              &dollar;&nbsp;{{product.pricePerKilogram}}
+              <button mat-raised-button
+                  (click)="openPriceByWeightDialog()">
+                Calculate Price by Weight
+              </button>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,24 @@
+<div class="products">
+  <div class="grid">
+
+    <ng-container *ngFor="let p of products">
+      <a routerLink="../product/{{p.uuid}}">
+        <mat-card class="product-card">
+
+          <img mat-card-xl-image
+              src="{{p.pictures[0]}}"
+              alt="Photo of {{p.productName}}" />
+
+          <mat-card-header>
+            <mat-card-title-group>
+              <mat-card-title>{{p.productName}}</mat-card-title>
+              <mat-card-subtitle>{{p.colour}} cheese</mat-card-subtitle>
+            </mat-card-title-group>
+          </mat-card-header>
+
+        </mat-card>
+      </a>
+    </ng-container>
+
+  </div>
+</div>

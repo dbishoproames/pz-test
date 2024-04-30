@@ -1,0 +1,86 @@
+//
+// TODO: make this CSS debugging stuff a mixin insted!
+//
+/*
+div.grid,
+div.grid > div {
+  border-style: dashed;
+  border-width: 0.3rem;
+  padding: 0.3rem;
+  margin: 0.3rem;
+}
+div.grid {
+  border-color: magenta;
+  > div {
+    border-color: teal;
+  }
+}
+// end CSS debugging stuff
+//*/
+
+
+
+div.grid {
+  display: grid;
+  grid-template-columns: [col-start] minmax(200px, 1280px) [col-end];
+  grid-template-rows: [row-start] auto [row-nav-start] 1fr [row-main-start] minmax(100px, auto) [row-end];
+  gap: 0rem;
+  justify-content: center;
+
+  > div.title {
+    grid-row-start: row-start;
+    grid-row-end: row-nav-start;
+    margin-bottom: 10px;
+  }
+  > nav {
+    grid-row-start: row-nav-start;
+    grid-row-end: row-main-start;
+  }
+  > div.main-content {
+    grid-row-start: row-main-start;
+    grid-row-end: row-end;
+  }
+  > app-messages {
+    grid-row-start: row-end;
+    grid-row-end: row-end;
+  }
+}
+
+div.title {
+  background-image: url('/assets/images/cheese-banner.jpeg');
+  background-position-y: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  > h1 {
+    font-size: 4em;
+    color: white;
+    margin: 50px 25px;
+  }
+}
+
+nav {
+  > button,
+  > div.admin,
+  > div.admin > button,
+  > div.editToggle {
+    margin: 0px 10px;
+  }
+  > div.admin {
+    display: inline-block;
+    border: solid rgb(255, 64, 129) 0.15rem;
+    //border-radius: 1rem;
+    background-color: rgba(255, 64, 129, 0.33);
+    padding: 4px 4px 4px 8px;
+    > span {
+      font-weight: 500;
+    }
+  }
+  > div.editToggle {
+    display: block;
+    float: right;
+    > span {
+      display: block;
+      font-size: small;
+    }
+  }
+}

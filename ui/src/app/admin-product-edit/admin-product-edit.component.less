@@ -1,0 +1,98 @@
+//
+// TODO: make this CSS debugging stuff a mixin insted!
+//
+/*
+div.product,
+div.grid,
+div.grid > div {
+  border-style: dashed;
+  border-width: 0.3rem;
+  padding: 0.3rem;
+  margin: 0.3rem;
+}
+div.product {
+  border-color: green;
+  div.grid {
+    border-color: orchid;
+    > div {
+      border-color: purple;
+    }
+  }
+}
+// end CSS debugging stuff
+//*/
+
+
+
+div.grid {
+  display: grid;
+  grid-template-columns: [col-nav-start] 100px [col-main-start] minmax(200px, 600px) [col-end];
+  grid-template-rows: [row-main-start] 1fr [row-actions-start] 80px [row-end];
+  gap: 0rem;
+  justify-content: center;
+
+  margin: 2rem 1rem;
+
+  > div.nav {
+    grid-column-start: col-nav-start;
+    grid-column-end: col-main-start;
+    grid-row-start: row-main-start;
+    grid-row-end: row-actions-start;
+    justify-self: end;
+    button {
+      margin: 0px 10px;
+    }
+  }
+  > div.main {
+    grid-column-start: col-main-start;
+    grid-column-end: col-end;
+    grid-row-start: row-main-start;
+    grid-row-end: row-actions-start;
+  }
+  > div.actions {
+    grid-column-start: col-main-start;
+    grid-column-end: col-end;
+    grid-row-start: row-actions-start;
+    grid-row-end: row-end;
+    justify-self: end;
+    button {
+      margin: 0px 10px;
+    }
+  }
+}
+
+div.formGrid {
+  display: grid;
+  grid-template-columns: [col-start] auto [col-end];
+  gap: 0.5rem;
+
+  > * {
+    grid-column-start: col-start;
+    grid-column-end: col-end;
+  }
+}
+
+div.pictures {
+  display: grid;
+  grid-template-columns: [col-start] 20px [col-action] 40px [col-field] auto [col-preview] 50px [col-end];
+  gap: 0.5rem;
+
+  > * {
+    grid-column-start: col-start;
+    grid-column-end: col-end;
+  }
+  > button {
+    grid-column-start: col-action;
+    grid-column-end: col-action;
+  }
+  > mat-form-field {
+    grid-column-start: col-field;
+    grid-column-end: col-field;
+  }
+  > img {
+    grid-column-start: col-preview;
+    grid-column-end: col-preview;
+    max-width: 50px;
+    max-height: 50px;
+  }
+}

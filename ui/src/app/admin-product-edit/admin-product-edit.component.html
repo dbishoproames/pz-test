@@ -1,0 +1,75 @@
+<div *ngIf="product" class="product">
+  <div class="grid">
+
+    <div class="nav">
+      <button mat-fab color="primary"
+          (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+    </div>
+
+    <div class="main">
+      <div class="formGrid">
+
+        <mat-form-field appearance="outline" class="name">
+          <mat-label>Product name</mat-label>
+          <input matInput type="text" required
+              placeholder="Product name"
+              [(ngModel)]="product.productName">
+        </mat-form-field>
+
+        <mat-form-field class="colour">
+          <mat-label>Colour</mat-label>
+          <input matInput type="text" required
+              placeholder="Color"
+              [(ngModel)]="product.colour">
+        </mat-form-field>
+
+        <div class="pictures">
+          <mat-label>Pictures</mat-label>
+          <ng-container *ngFor="let p of product.pictures; index as i">
+            <button mat-mini-fab color="warn"
+                (click)="removePicture(i)">
+              <mat-icon>remove</mat-icon>
+            </button>
+            <mat-form-field matListItemLine>
+              <mat-label matListItemTitle>Picture {{i}}</mat-label>
+              <input matInput type="text" required
+                  placeholder="Image URL"
+                  [(ngModel)]="product.pictures[i]">
+            </mat-form-field>
+            <img [src]="product.pictures[i]">
+          </ng-container>
+          <button mat-mini-fab color="primary"
+              (click)="product.pictures.push('');">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+
+        <mat-form-field class="price">
+          <mat-label>Price</mat-label>
+          <input matInput type="number" required
+              placeholder="0.00" min="0.0" step="0.01"
+              [(ngModel)]="product.pricePerKilogram">
+          <span matTextPrefix>$&nbsp;</span>
+          <mat-hint>(per kilogram)</mat-hint>
+        </mat-form-field>
+
+      </div>
+    </div>
+
+    <div class="actions">
+      <button *ngIf="!createMode" mat-fab extended color="warn"
+          (click)="deleteProduct()">
+        <mat-icon>delete</mat-icon>
+        Delete
+      </button>
+      <button mat-fab extended color="primary"
+          (click)="saveProduct()">
+        <mat-icon>save</mat-icon>
+        Save
+      </button>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,45 @@
+table.calculator {
+  border-spacing: 0.5rem 0px;
+
+  > thead > tr,
+  > tbody > tr {
+    > th,
+    > td {
+      padding: 0px 0px;
+      &.price {
+        width: 75px;
+        text-align: right;
+      }
+      &.operator {
+        width: 15px;
+        text-align: center;
+        padding: 0px 10px;
+        font-family: monospace;
+        font-size: larger;
+        color: black;
+      }
+      &.weightInKilograms {
+        width: 150px;
+        mat-form-field.weightInKilograms {
+          width: 150px;
+          input {
+            text-align: right;
+          }
+        }
+      }
+      &.total {
+        width: 125px;
+        text-align: right;
+        padding: 0px 10px 0px 0px;
+        background-color: #3f51b5;
+        color: white;
+        font-weight: bold;
+      }
+    }
+  }
+
+  > thead > tr > th {
+    font-size: small;
+    font-style: italic;
+  }
+}
